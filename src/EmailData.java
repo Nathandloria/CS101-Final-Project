@@ -166,15 +166,19 @@ public class EmailData {
     }
   }
 
-  public String[] getSender() {
+  public String[] getSenders() {
     return senders;
   }
 
-  public Date[] getDate() {
+  public Date[] getDates() {
     return messageDates;
   }
 
-  public Message[] getMessageArray() {
+  public String[] getSubjects() {
+    return subjects;
+  }
+
+  public Message[] getMessages() {
     return messages;
   }
 }
