@@ -10,16 +10,12 @@ public class EmailMain {
     int num;
     EmailData email = new EmailData();
     Scanner scan = new Scanner(System.in);
-    /** System.out.println("\nPlease enter your e-mail address: ");
+    System.out.println("\nPlease enter your e-mail address: ");
     username = scan.next();
     System.out.println("\nPlease enter your app password: ");
     password = scan.next();
     System.out.println("\nPlease enter the amount of e-mails to read: ");
     limit = scan.nextInt();
-    */
-    username = "lorian@allegheny.edu";
-    limit = 10;
-    password = "pisgdzkwfhbytetm";
     email.setUsername(username);
     email.setPassword(password);
     email.setLimit(limit);
@@ -34,9 +30,9 @@ public class EmailMain {
     email.setMessageSender();
     email.setMessageSubject();
     System.out.println();
-    for(int i = 0; i < limit; i++) {
-      System.out.println("\n-----------------------------------------------------------------\n");
-      System.out.println("<Message " + (i + 1) + ">");
+    for(int i = limit - 1; i > -1; i--) {
+      System.out.println("-----------------------------------------------------------------");
+      System.out.println("\n<Message " + (i + 1) + ">");
       System.out.println("From: " + email.getSenders()[i]);
       System.out.println("On: " + email.getDates()[i]);
       System.out.println("Subject: " + email.getSubjects()[i]);
@@ -46,7 +42,7 @@ public class EmailMain {
         System.out.println(x);
       }
     }
-    System.out.println("\n-----------------------------------------------------------------\n");
+    System.out.println("-----------------------------------------------------------------");
     email.closeStore();
     email.closeFolder();
   }

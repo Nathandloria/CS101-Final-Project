@@ -29,6 +29,7 @@ public class EmailData {
   private Properties properties;
   private Part part;
   private int index;
+  private String content;
 
   public void createProperties() {
     properties = new Properties();
