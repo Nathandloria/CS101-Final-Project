@@ -38,9 +38,8 @@ public class EmailData {
   public void setMailStoreType(String mailStoreType) {
     try {
       MailStoreType = mailStoreType;
-
-      throw new NoSuchProviderException();
-    } catch (NoSuchProviderException e) {
+    } catch (Exception x) {
+      System.out.println(x);
     }
   }
 
@@ -68,9 +67,8 @@ public class EmailData {
     try {
       store = emailSession.getStore("imaps");
       store.connect(Host, Username, Password);
-
-      throw new MessagingException();
-    } catch (MessagingException e) {
+    } catch (Exception x) {
+      System.out.println(x);
     }
   }
 
@@ -79,18 +77,16 @@ public class EmailData {
       EmailFolder = store.getFolder("INBOX");
       EmailFolder.open(Folder.READ_ONLY);
       Reader = new BufferedReader(new InputStreamReader(System.in));
-
-      throw new MessagingException();
-    } catch (MessagingException e) {
+    } catch (Exception x) {
+      System.out.println(x);
     }
   }
 
   public void setMessageArray() {
     try {
       messages = EmailFolder.getMessages();
-
-      throw new MessagingException();
-    } catch (MessagingException e) {
+    } catch (Exception x) {
+      System.out.println(x);
     }
   }
 
@@ -104,9 +100,8 @@ public class EmailData {
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
         messageDates[index] = messages[i].getSentDate();
-
-        throw new MessagingException();
-      } catch (MessagingException e) {
+      } catch (Exception x) {
+        System.out.println(x);
       }
       index++;
       if(index == Limit) { //how many recent messages you want to collect
@@ -121,9 +116,8 @@ public class EmailData {
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
         senders[index] = InternetAddress.toString(messages[i].getFrom());
-
-        throw new MessagingException();
-      } catch (MessagingException e) {
+      } catch (Exception x) {
+        System.out.println(x);
       }
       index++;
       if(index == Limit) { //how many recent messages you want to collect
@@ -138,9 +132,8 @@ public class EmailData {
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
         subjects[index] = messages[i].getSubject();
-
-        throw new MessagingException();
-      } catch (MessagingException e) {
+      } catch (Exception x) {
+        System.out.println(x);
       }
       index++;
       if(index == Limit) { //how many recent messages you want to collect
@@ -152,18 +145,16 @@ public class EmailData {
   public void closeStore() {
     try {
       EmailFolder.close(false);
-
-      throw new MessagingException();
-    } catch (MessagingException e) {
+    } catch (Exception x) {
+      System.out.println(x);
     }
   }
 
   public void closeFolder() {
     try {
       store.close();
-
-      throw new MessagingException();
-    } catch (MessagingException e) {
+    } catch (Exception x) {
+      System.out.println(x);
     }
   }
 
