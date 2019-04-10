@@ -55,13 +55,5 @@ public class EmailMain {
       message = scan.nextLine();
       email.sendEmail(recipient, subject, message);
     }
-<<<<<<< HEAD
-    System.out.println("-----------------------------------------------------------------");
-    email.closeStore();
-    email.closeFolder();
-
-    
-=======
->>>>>>> 49dee2ace6539b96162208e05b71cf6aec4588d8
   }
 }
