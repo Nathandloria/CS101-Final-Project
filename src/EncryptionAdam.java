@@ -7,9 +7,9 @@ import java.util.Random;
 *   @author Adam Cook
 */
 
-public class stringEncryption{
+public class EncryptionAdam{
 
-  public void encript(String message){
+  public String encript(String message){
     char[] a = message.toCharArray();
       int key = 150;  // Shift key for CaesarCipher
       // Encripts by shifting position of each char by key

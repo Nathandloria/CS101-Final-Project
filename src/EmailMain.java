@@ -10,6 +10,7 @@ public class EmailMain {
     String subject;
     int limit;
     int num;
+    EncryptionAdam alg1;
     EmailData email = new EmailData();
     Scanner scan = new Scanner(System.in);
     System.out.println("\nPlease enter your e-mail address: ");
@@ -53,6 +54,8 @@ public class EmailMain {
       subject = scan.nextLine();
       System.out.println("\nPlease enter the message you would like to send: ");
       message = scan.nextLine();
+      alg1 = new EncryptionAdam();
+      message = alg1.encript(message);
       email.sendEmail(recipient, subject, message);
     }
   }
