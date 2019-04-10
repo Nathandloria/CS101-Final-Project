@@ -31,7 +31,7 @@ public class AlgorithmAES {
 		return encryptedText;
 	}
 
-	public String decrypt(String encryptedText, SecretKey secretKey)
+	public String decrypt(String encryptedText)
 	throws Exception {
 		Base64.Decoder decoder = Base64.getDecoder();
 		byte[] encryptedTextByte = decoder.decode(encryptedText);
