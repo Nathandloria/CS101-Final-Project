@@ -48,10 +48,11 @@ public class EmailMain {
     } else if (num == 1) {
       System.out.println("\nPlease enter the address of the intended recipient: ");
       recipient = scan.next();
+      scan.nextLine();
       System.out.println("\nPlease enter the subject of the message: ");
-      subject = scan.next();
+      subject = scan.nextLine();
       System.out.println("\nPlease enter the message you would like to send: ");
-      message = scan.next();
+      message = scan.nextLine();
       email.sendEmail(recipient, subject, message);
     }
   }
