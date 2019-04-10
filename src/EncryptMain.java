@@ -46,6 +46,17 @@ public class EmailMain {
     email.closeStore();
     email.closeFolder();
 
+
+    char[] word = email.setMessageArray.toCharArray();
+    int num = 5;
+
+    String code;
     
+
+    System.out.println("\nEncrypting your email... ");
+    encrypt(word, email.setMessageArray, num);
+
   }
 }
+
+static String
