@@ -52,9 +52,7 @@ public class EmailMain {
       subject = scan.next();
       System.out.println("\nPlease enter the message you would like to send: ");
       message = scan.next();
-      email.sendEmail(username, recipient, subject, message);
+      email.sendEmail(recipient, subject, message);
     }
-    email.closeStore();
-    email.closeFolder();
   }
 }

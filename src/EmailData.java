@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.FileWriter;
 import java.io.FileReader;
+import java.lang.Object;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+import javax.mail.Authenticator;
 
 public class EmailData {
   private String Username;
@@ -18,6 +20,7 @@ public class EmailData {
   private BufferedReader Reader;
   private Store store;
   private Session emailSession;
+  private Session session;
   private Date[] messageDates;
   private String[] senders;
   private String[] subjects;
@@ -209,14 +212,29 @@ public class EmailData {
     return messagecontent;
   }
 
-  public void sendEmail(String username, String recipient, String subject, String message) {
+  public void sendEmail(String recipient, String subject, String message) {
     try {
-      usermessage = new MimeMessage(emailSession);
-      usermessage.setFrom(new InternetAddress(username));
+      Properties prop = new Properties();
+      prop.put("mail.smtp.auth", "true");
+      prop.put("mail.smtp.starttls.enable", "true");
+      prop.put("mail.smtp.host", "smtp.gmail.com");
+      prop.put("mail.smtp.port", "587");
+      prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+      session = Session.getInstance(prop, new javax.mail.Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+          return new PasswordAuthentication(Username, Password);
+        }
+      });
+
+      usermessage = new MimeMessage(session);
+      usermessage.setFrom(new InternetAddress(Username));
       usermessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
       usermessage.setSubject(subject);
       usermessage.setText(message);
+      usermessage.saveChanges();
       Transport.send(usermessage);
+      System.out.println("\nMessage sent successfully!");
     } catch (Exception x) {
       System.out.println(x);
     }
