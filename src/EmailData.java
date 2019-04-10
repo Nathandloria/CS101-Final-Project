@@ -10,7 +10,8 @@ import java.util.Date;
 import java.util.Scanner;
 import javax.mail.*;
 import javax.mail.Multipart;
-import javax.mail.internet.InternetAddress;
+import javax.mail.internet.*;
+import javax.activation.*;
 
 public class EmailData {
   private String Username;
@@ -209,5 +210,18 @@ public class EmailData {
 
   public String[] getMessageContent() {
     return messagecontent;
+  }
+
+  public void sendEmail(String username, String recipient, String subject, String message) {
+    try {
+      MimeMessage usermessage = new MimeMessage(emailSession);
+      usermessage.setFrom(new InternetAddress(username));
+      usermessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+      usermessage.setSubject(subject);
+      usermessage.setText(message);
+      Transport.send(usermessage);
+    } catch (Exception x) {
+      System.out.println(x);
+    }
   }
 }
