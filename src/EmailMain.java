@@ -29,6 +29,7 @@ public class EmailMain {
     email.setMessageDate();
     email.setMessageSender();
     email.setMessageSubject();
+    email.setMessageContent();
     System.out.println();
     for(int i = limit - 1; i > -1; i--) {
       System.out.println("-----------------------------------------------------------------");
@@ -36,11 +37,7 @@ public class EmailMain {
       System.out.println("From: " + email.getSenders()[i]);
       System.out.println("On: " + email.getDates()[i]);
       System.out.println("Subject: " + email.getSubjects()[i]);
-      try {
-        System.out.println("Message: \n\n" + ((Multipart)email.getMessages()[email.getMessages().length - 1 - i].getContent()).getBodyPart(0).getContent() + "\n");
-      } catch (Exception x) {
-        System.out.println(x);
-      }
+      System.out.println("Message: \n\n" + email.getMessageContent()[i]);
     }
     System.out.println("-----------------------------------------------------------------");
     email.closeStore();

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 import javax.mail.*;
+import javax.mail.Multipart;
 import javax.mail.internet.InternetAddress;
 
 public class EmailData {
@@ -29,7 +30,7 @@ public class EmailData {
   private Properties properties;
   private Part part;
   private int index;
-  private String content;
+  private String[] messagecontent;
 
   public void createProperties() {
     properties = new Properties();
@@ -90,6 +91,27 @@ public class EmailData {
     }
   }
 
+  public void setMessageContent() {
+    index = 0;
+    messagecontent = new String[Limit];
+    for (int i = messages.length-1; i < messages.length; i--) {
+      try {
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          messagecontent[index] = (String)((Multipart)messages[i].getContent()).getBodyPart(0).getContent();
+        } else {
+          index--;
+        }
+      } catch (Exception x) {
+        System.out.println(x);
+      }
+      index++;
+      System.out.println(index);
+      if(index == Limit) {
+        break;
+      }
+    }
+  }
+
   public void setLimit(int limit) {
     Limit = limit;
   }
@@ -99,12 +121,17 @@ public class EmailData {
     messageDates = new Date[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        messageDates[index] = messages[i].getSentDate();
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          messageDates[index] = messages[i].getSentDate();
+        } else {
+          index--;
+        }
       } catch (Exception x) {
         System.out.println(x);
       }
       index++;
-      if(index == Limit) { //how many recent messages you want to collect
+      System.out.println(index);
+      if(index == Limit) {
         break;
       }
     }
@@ -115,12 +142,17 @@ public class EmailData {
     senders = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        senders[index] = InternetAddress.toString(messages[i].getFrom());
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          senders[index] = InternetAddress.toString(messages[i].getFrom());
+        } else {
+          index--;
+        }
       } catch (Exception x) {
         System.out.println(x);
       }
       index++;
-      if(index == Limit) { //how many recent messages you want to collect
+      System.out.println(index);
+      if(index == Limit) {
         break;
       }
     }
@@ -131,12 +163,17 @@ public class EmailData {
     subjects = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        subjects[index] = messages[i].getSubject();
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          subjects[index] = messages[i].getSubject();
+        } else {
+          index--;
+        }
       } catch (Exception x) {
         System.out.println(x);
       }
       index++;
-      if(index == Limit) { //how many recent messages you want to collect
+      System.out.println(index);
+      if(index == Limit) {
         break;
       }
     }
@@ -172,5 +209,9 @@ public class EmailData {
 
   public Message[] getMessages() {
     return messages;
+  }
+
+  public String[] getMessageContent() {
+    return messagecontent;
   }
 }
