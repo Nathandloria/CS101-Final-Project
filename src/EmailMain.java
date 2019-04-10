@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.io.IOException;
-import javax.mail.Multipart;
 
 public class EmailMain {
   public static void main(String[] args) {
@@ -46,8 +45,6 @@ public class EmailMain {
         System.out.println("Message: \n\n" + email.getMessageContent()[i]);
       }
       System.out.println("\n-----------------------------------------------------------------");
-      email.closeStore();
-      email.closeFolder();
     } else if (num == 1) {
       System.out.println("\nPlease enter the address of the intended recipient: ");
       recipient = scan.next();
@@ -56,8 +53,8 @@ public class EmailMain {
       System.out.println("\nPlease enter the message you would like to send: ");
       message = scan.next();
       email.sendEmail(username, recipient, subject, message);
-      email.closeStore();
-      email.closeFolder();
     }
+    email.closeStore();
+    email.closeFolder();
   }
 }

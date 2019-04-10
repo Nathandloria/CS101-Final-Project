@@ -4,12 +4,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.FileWriter;
 import java.io.FileReader;
-import java.util.Properties;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 import javax.mail.*;
-import javax.mail.Multipart;
 import javax.mail.internet.*;
 import javax.activation.*;
 
