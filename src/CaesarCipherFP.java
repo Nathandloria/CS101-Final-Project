@@ -1,69 +1,16 @@
 import java.util.Scanner;
 
 public class CaesarCipherFP {
-  public static void main(String[] args) {
 
-    // devlares variables and scanner
-    int var;
-    Scanner scan = new Scanner(System.in);
+  private String code2;
+  private int var2;
+  private char b;
+  private char[] arr2;
 
-    // asks user for string input
-
-    System.out.println("Enter a string to encrypt: ");
-    String code = scan.nextLine();
-
-    //asks how many letters to change string too
-
-    System.out.println("On the interval 1-25, please select an amount to change: ");
-    var = scan.nextInt();
-
-    // case where a variable out of bounds is corrected
-
-    while (var < 1 || var > 25) {
-      System.out.println("On the interval 1-25, please select an amount to change: ");
-      var = scan.nextInt();
-    }
-
-    char[] arr = code.toCharArray();
-    String input;
-
-    // verify encryption
-
-    System.out.println("Would you like to encrypt this message? (y/n): ");
-    input = scan.next();
-    //meassage verification
-
-    if (input.equals("y") == true || input.equals("Y") == true) {
-      System.out.println("\nEncrypting your message...");
-      encrypt(arr, code, var);
-    } else {
-      System.out.println("Thanks for using the program!");
-    }
-
-    System.out.println("\n" + "\nWould you like to decrypt this message? (y/n): ");
-    input = scan.next();
-    //input to decrypt
-
-    if (input.equals("y") == true || input.equals("Y") == true) {
-      System.out.println("\nDecrypting your message...");
-      decrypt(var);
-    } else {
-      System.out.println("Thanks for using the program!");
-    }
-    // calls the decrypt method
-  }
-
-  static String code2;
-  static int var2;
-  static char b;
-  static char[] arr2;
-
-  // variables to do methods
-
-  	static void encrypt(char[] arr, String code, int var) {
+  	public String encrypt(String code, int var) {
   		code2 = code;
   		var2 = var;
-  		arr2 = arr;
+  		arr2 = new char[code2.length];
 
   		System.out.println("\nNew Message: ");
   		for (int o = 0; o < arr2.length; o++) {
@@ -78,13 +25,14 @@ public class CaesarCipherFP {
   					arr2[o] = b;
   				}
   			}
-  			System.out.print(arr2[o]);
+
   		}
+      return code2 = String(arr2);
   	}
 
   	// encrypt storing new message in array
 
-  	static void decrypt(int var) {
+  	public String decrypt(int var) {
   		code2 = String.copyValueOf(arr2);
   		var2 = var;
 
@@ -101,10 +49,11 @@ public class CaesarCipherFP {
   					arr2[p] = b;
   				}
   			}
-  			System.out.print(arr2[p]);
+
   		}
-  		System.out.println();
+      return code2 = String(arr2);
   	}
+
 
   	// decrypts the message in an arrray into another array
   }
