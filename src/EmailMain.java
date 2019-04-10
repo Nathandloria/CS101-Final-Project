@@ -13,6 +13,7 @@ public class EmailMain {
     int key;
     AlgorithmOne alg1;
     AlgorithmTwo alg2;
+    AlgorithmAES alg3;
     EmailData email = new EmailData();
     Scanner scan = new Scanner(System.in);
     System.out.println("\nPlease enter your e-mail address: ");
@@ -70,6 +71,14 @@ public class EmailMain {
           key = scan.nextInt();
         }
         message = alg2.encrypt(message, key);
+      } else if (num == 3) {
+        alg3 = new AlgorithmAES();
+        alg3.setKey();
+        try {
+          message = alg3.encrypt(message);
+        } catch (Exception x) {
+          System.out.println(x);
+        }
       }
       email.sendEmail(recipient, subject, message);
     }
