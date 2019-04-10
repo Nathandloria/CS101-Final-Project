@@ -4,12 +4,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.FileWriter;
 import java.io.FileReader;
-import java.util.Properties;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Scanner;
+import java.lang.Object;
+import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
+import javax.mail.internet.*;
+import javax.activation.*;
+import javax.mail.Authenticator;
 
 public class EmailData {
   private String Username;
@@ -20,6 +20,7 @@ public class EmailData {
   private BufferedReader Reader;
   private Store store;
   private Session emailSession;
+  private Session session;
   private Date[] messageDates;
   private String[] senders;
   private String[] subjects;
@@ -29,7 +30,8 @@ public class EmailData {
   private Properties properties;
   private Part part;
   private int index;
-  private String content;
+  private String[] messagecontent;
+  private MimeMessage usermessage;
 
   public void createProperties() {
     properties = new Properties();
@@ -90,6 +92,26 @@ public class EmailData {
     }
   }
 
+  public void setMessageContent() {
+    index = 0;
+    messagecontent = new String[Limit];
+    for (int i = messages.length-1; i < messages.length; i--) {
+      try {
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          messagecontent[index] = (String)((Multipart)messages[i].getContent()).getBodyPart(0).getContent();
+        } else {
+          index--;
+        }
+      } catch (Exception x) {
+        System.out.println(x);
+      }
+      index++;
+      if(index == Limit) {
+        break;
+      }
+    }
+  }
+
   public void setLimit(int limit) {
     Limit = limit;
   }
@@ -99,12 +121,16 @@ public class EmailData {
     messageDates = new Date[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        messageDates[index] = messages[i].getSentDate();
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          messageDates[index] = messages[i].getSentDate();
+        } else {
+          index--;
+        }
       } catch (Exception x) {
         System.out.println(x);
       }
       index++;
-      if(index == Limit) { //how many recent messages you want to collect
+      if(index == Limit) {
         break;
       }
     }
@@ -115,12 +141,16 @@ public class EmailData {
     senders = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        senders[index] = InternetAddress.toString(messages[i].getFrom());
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          senders[index] = InternetAddress.toString(messages[i].getFrom());
+        } else {
+          index--;
+        }
       } catch (Exception x) {
         System.out.println(x);
       }
       index++;
-      if(index == Limit) { //how many recent messages you want to collect
+      if(index == Limit) {
         break;
       }
     }
@@ -131,12 +161,16 @@ public class EmailData {
     subjects = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        subjects[index] = messages[i].getSubject();
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          subjects[index] = messages[i].getSubject();
+        } else {
+          index--;
+        }
       } catch (Exception x) {
         System.out.println(x);
       }
       index++;
-      if(index == Limit) { //how many recent messages you want to collect
+      if(index == Limit) {
         break;
       }
     }
@@ -172,5 +206,37 @@ public class EmailData {
 
   public Message[] getMessages() {
     return messages;
+  }
+
+  public String[] getMessageContent() {
+    return messagecontent;
+  }
+
+  public void sendEmail(String recipient, String subject, String message) {
+    try {
+      Properties prop = new Properties();
+      prop.put("mail.smtp.auth", "true");
+      prop.put("mail.smtp.starttls.enable", "true");
+      prop.put("mail.smtp.host", "smtp.gmail.com");
+      prop.put("mail.smtp.port", "587");
+      prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+      session = Session.getInstance(prop, new javax.mail.Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+          return new PasswordAuthentication(Username, Password);
+        }
+      });
+
+      usermessage = new MimeMessage(session);
+      usermessage.setFrom(new InternetAddress(Username));
+      usermessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+      usermessage.setSubject(subject);
+      usermessage.setText(message);
+      usermessage.saveChanges();
+      Transport.send(usermessage);
+      System.out.println("\nMessage sent successfully!");
+    } catch (Exception x) {
+      System.out.println(x);
+    }
   }
 }
