@@ -8,10 +8,13 @@ import java.util.Random;
 */
 
 public class AlgorithmOne{
+  private String message;
+  private char[] a;
+  private int key;
 
   public String encript(String message){
-    char[] a = message.toCharArray();
-      int key = 150;  // Shift key for CaesarCipher
+      a = message.toCharArray();
+      key = 150;  // Shift key for CaesarCipher
       // Encripts by shifting position of each char by key
       for (int i=0; i<message.length(); i++) {
         char temp = a[i];
@@ -20,11 +23,13 @@ public class AlgorithmOne{
         a[i] = (char)encriptedNumTemp;
       }
       //System.out.println(Arrays.toString(a)); //Displays encripted message
-      return Arrays.toString(a);
+      message = new String(a);
+      return message;
     }
 
     public String unencript(String message) {
-      int key = 150;  // Shift key for CaesarCipher
+      a = message.toCharArray();
+      key = 150;  // Shift key for CaesarCipher
       // Encripts by shifting position of each char by key
       for (int i=0; i<message.length(); i++) {
         char temp = a[i];
@@ -33,8 +38,7 @@ public class AlgorithmOne{
         a[i] = (char)unencriptedNumTemp;
       }
       //System.out.println(Arrays.toString(a)); //Displays encripted message
-      return Arrays.toString(a);
+      message = new String(a);
+      return message;
     }
-    }
-
   }
