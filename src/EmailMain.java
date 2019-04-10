@@ -11,8 +11,8 @@ public class EmailMain {
     int limit;
     int num;
     int key;
-    EncryptionAdam alg1;
-    CaesarCipherFP alg2;
+    AlgorithmOne alg1;
+    AlgorithmTwo alg2;
     EmailData email = new EmailData();
     Scanner scan = new Scanner(System.in);
     System.out.println("\nPlease enter your e-mail address: ");
@@ -59,12 +59,16 @@ public class EmailMain {
       System.out.println("\nPlease choose which algorithm to encrypt with: ");
       num = scan.nextInt();
       if (num == 1) {
-        alg1 = new EncryptionAdam();
+        alg1 = new AlgorithmOne();
         message = alg1.encript(message);
       } else if (num == 2) {
-        alg2 = new CaesarCipherFP();
-        System.out.println("\nPlease enter the amount to encrypt by: ");
+        alg2 = new AlgorithmTwo();
+        System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
         key = scan.nextInt();
+        while (key > 26 || key < 1) {
+          System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
+          key = scan.nextInt();
+        }
         message = alg2.encrypt(message, key);
       }
       email.sendEmail(recipient, subject, message);

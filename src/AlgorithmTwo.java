@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class CaesarCipherFP {
+public class AlgorithmTwo {
 
   private String code2;
   private int var2;

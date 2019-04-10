@@ -7,8 +7,8 @@ import java.util.Random;
 *   @author Adam Cook
 */
 
-public class EncryptionAdam{
-
+public class AlgorithmOne{
+  
   public String encript(String message){
     char[] a = message.toCharArray();
       int key = 150;  // Shift key for CaesarCipher
