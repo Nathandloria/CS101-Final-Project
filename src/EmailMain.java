@@ -26,6 +26,7 @@ public class EmailMain {
     email.imapsConnect();
     email.createFolder();
     email.setMessageArray();
+    email.setMessageContent();
     email.setMessageDate();
     email.setMessageSender();
     email.setMessageSubject();

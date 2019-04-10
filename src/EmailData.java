@@ -105,7 +105,6 @@ public class EmailData {
         System.out.println(x);
       }
       index++;
-      System.out.println(index);
       if(index == Limit) {
         break;
       }
@@ -130,7 +129,6 @@ public class EmailData {
         System.out.println(x);
       }
       index++;
-      System.out.println(index);
       if(index == Limit) {
         break;
       }
@@ -151,7 +149,6 @@ public class EmailData {
         System.out.println(x);
       }
       index++;
-      System.out.println(index);
       if(index == Limit) {
         break;
       }
@@ -172,7 +169,6 @@ public class EmailData {
         System.out.println(x);
       }
       index++;
-      System.out.println(index);
       if(index == Limit) {
         break;
       }
