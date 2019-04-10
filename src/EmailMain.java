@@ -17,7 +17,7 @@ public class EmailMain {
     username = scan.next();
     System.out.println("\nPlease enter your app password: ");
     password = scan.next();
-    System.out.println("Would you like to 1) Send a message or 2) Read emails? (1/2): ");
+    System.out.println("\nWould you like to 1) Send a message or 2) Read emails? (1/2): ");
     num = scan.nextInt();
     email.setUsername(username);
     email.setPassword(password);
@@ -36,7 +36,6 @@ public class EmailMain {
       email.setMessageDate();
       email.setMessageSender();
       email.setMessageSubject();
-      email.setMessageContent();
       System.out.println();
       for(int i = limit - 1; i > -1; i--) {
         System.out.println("-----------------------------------------------------------------");
@@ -46,17 +45,19 @@ public class EmailMain {
         System.out.println("Subject: " + email.getSubjects()[i]);
         System.out.println("Message: \n\n" + email.getMessageContent()[i]);
       }
-      System.out.println("-----------------------------------------------------------------");
+      System.out.println("\n-----------------------------------------------------------------");
       email.closeStore();
       email.closeFolder();
     } else if (num == 1) {
-      System.out.println("Please enter the address of the intended recipient: ");
+      System.out.println("\nPlease enter the address of the intended recipient: ");
       recipient = scan.next();
-      System.out.println("Please enter the subject of the message: ");
+      System.out.println("\nPlease enter the subject of the message: ");
       subject = scan.next();
-      System.out.println("Please enter the message you would like to send: ");
+      System.out.println("\nPlease enter the message you would like to send: ");
       message = scan.next();
       email.sendEmail(username, recipient, subject, message);
+      email.closeStore();
+      email.closeFolder();
     }
   }
 }

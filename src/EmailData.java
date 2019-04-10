@@ -32,6 +32,7 @@ public class EmailData {
   private Part part;
   private int index;
   private String[] messagecontent;
+  private MimeMessage usermessage;
 
   public void createProperties() {
     properties = new Properties();
@@ -214,7 +215,7 @@ public class EmailData {
 
   public void sendEmail(String username, String recipient, String subject, String message) {
     try {
-      MimeMessage usermessage = new MimeMessage(emailSession);
+      usermessage = new MimeMessage(emailSession);
       usermessage.setFrom(new InternetAddress(username));
       usermessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
       usermessage.setSubject(subject);
