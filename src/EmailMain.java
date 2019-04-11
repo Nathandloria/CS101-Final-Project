@@ -33,8 +33,7 @@ public class EmailMain {
     email.imapsConnect();
     if (num == 2) {
       email.setMessageArray();
-      email.setCount();
-      email.setLimit(email.getCount());
+      email.setLimit(20);
       email.createFolder();
       email.setMessageArray();
       email.setMessageContent();
@@ -42,7 +41,7 @@ public class EmailMain {
       email.setMessageSender();
       email.setMessageSubject();
       System.out.println();
-      for(int i = 0; i < email.getCount(); i++) {
+      for (int i = 20 - 1; i > -1; i--) {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("\n<Message " + (i + 1) + ">");
         System.out.println("From: " + email.getSenders()[i]);

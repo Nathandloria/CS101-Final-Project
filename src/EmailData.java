@@ -32,7 +32,6 @@ public class EmailData {
   private int index;
   private String[] messagecontent;
   private MimeMessage usermessage;
-  private int count;
 
   public void createProperties() {
     properties = new Properties();
@@ -96,15 +95,17 @@ public class EmailData {
   public void setMessageContent() {
     index = 0;
     messagecontent = new String[Limit];
-    for (int i = 20; i >= 0; i--) {
+    for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg")) {
-          messagecontent[index] = (String)((Object)messages[i].getContent());
-          index++;
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+          messagecontent[index] = (String)((Multipart)messages[i].getContent()).getBodyPart(0).getContent();
+        } else {
+          index--;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
+      index++;
       if(index == Limit) {
         break;
       }
@@ -115,36 +116,20 @@ public class EmailData {
     Limit = limit;
   }
 
-  public void setCount() {
-    count = 0;
-    for (int i = messages.length - 1; i < messages.length; i--) {
-      try {
-        if (messages[i].getDescription().equals("cs101alg")) {
-          count++;
-        }
-      } catch (Exception x) {
-        System.out.println(x);
-      }
-    }
-    System.out.println(count);
-  }
-
-  public int getCount() {
-    return count;
-  }
-
   public void setMessageDate() {
     index = 0;
     messageDates = new Date[Limit];
-    for (int i = 20; i >= 0; i--) {
+    for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg")) {
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
           messageDates[index] = messages[i].getSentDate();
-          index++;
+        } else {
+          index--;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
+      index++;
       if(index == Limit) {
         break;
       }
@@ -154,15 +139,17 @@ public class EmailData {
   public void setMessageSender() {
     index = 0;
     senders = new String[Limit];
-    for (int i = 20; i >= 0; i--) {
+    for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg")) {
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
-          index++;
+        } else {
+          index--;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
+      index++;
       if(index == Limit) {
         break;
       }
@@ -172,15 +159,17 @@ public class EmailData {
   public void setMessageSubject() {
     index = 0;
     subjects = new String[Limit];
-    for (int i = 20; i >= 0; i--) {
+    for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg")) {
+        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
           subjects[index] = messages[i].getSubject();
-          index++;
+        } else {
+          index--;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
+      index++;
       if(index == Limit) {
         break;
       }
@@ -243,7 +232,6 @@ public class EmailData {
       usermessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
       usermessage.setSubject(subject);
       usermessage.setText(message);
-      usermessage.setDescription("cs101alg");
       usermessage.saveChanges();
       Transport.send(usermessage);
       System.out.println("\nMessage sent successfully!");
