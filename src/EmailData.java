@@ -96,7 +96,7 @@ public class EmailData {
   public void setMessageContent() {
     index = 0;
     messagecontent = new String[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = 20; i >= 0; i--) {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           messagecontent[index] = (String)((Object)messages[i].getContent());
@@ -137,7 +137,7 @@ public class EmailData {
   public void setMessageDate() {
     index = 0;
     messageDates = new Date[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = 20; i >= 0; i--) {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           messageDates[index] = messages[i].getSentDate();
@@ -157,7 +157,7 @@ public class EmailData {
   public void setMessageSender() {
     index = 0;
     senders = new String[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = 20; i >= 0; i--) {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
@@ -177,7 +177,7 @@ public class EmailData {
   public void setMessageSubject() {
     index = 0;
     subjects = new String[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = 20; i >= 0; i--) {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           subjects[index] = messages[i].getSubject();
