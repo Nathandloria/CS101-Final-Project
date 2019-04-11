@@ -42,7 +42,7 @@ public class EmailMain {
       email.setMessageSender();
       email.setMessageSubject();
       System.out.println();
-      for(int i = email.getCount() - 1; i > -1; i--) {
+      for(int i = 0; i < email.getCount(); i++) {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("\n<Message " + (i + 1) + ">");
         System.out.println("From: " + email.getSenders()[i]);

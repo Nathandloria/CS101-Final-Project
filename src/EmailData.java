@@ -100,13 +100,11 @@ public class EmailData {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           messagecontent[index] = (String)((Object)messages[i].getContent());
-        } else {
-          index--;
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }
@@ -119,7 +117,7 @@ public class EmailData {
 
   public void setCount() {
     count = 0;
-    for (int i = 0; i < 20; i++) {
+    for (int i = 20; i >= 0; i--) {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           count++;
@@ -128,6 +126,7 @@ public class EmailData {
         System.out.println(x);
       }
     }
+    System.out.println(count);
   }
 
   public int getCount() {
@@ -141,13 +140,11 @@ public class EmailData {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           messageDates[index] = messages[i].getSentDate();
-        } else {
-          index--;
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }
@@ -161,13 +158,11 @@ public class EmailData {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
-        } else {
-          index--;
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }
@@ -181,13 +176,11 @@ public class EmailData {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           subjects[index] = messages[i].getSubject();
-        } else {
-          index--;
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }
@@ -249,7 +242,7 @@ public class EmailData {
       usermessage.setFrom(new InternetAddress(Username));
       usermessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
       usermessage.setSubject(subject);
-      usermessage.setText(message, "utf-8");
+      usermessage.setText(message);
       usermessage.setDescription("cs101alg");
       usermessage.saveChanges();
       Transport.send(usermessage);
