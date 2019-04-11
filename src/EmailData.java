@@ -32,6 +32,7 @@ public class EmailData {
   private int index;
   private String[] messagecontent;
   private MimeMessage usermessage;
+  private int count;
 
   public void createProperties() {
     properties = new Properties();
@@ -55,6 +56,19 @@ public class EmailData {
 
   public void setPassword(String password) {
     Password = password;
+  }
+
+  public void setCount() {
+    count = 0;
+    for (int i = messages.length - 21; i < messages.length; i++) {
+      try {
+        if (messages[i].getDescription().equals("cs101alg") == true) {
+          count++;
+        }
+      } catch (Exception x) {
+        System.out.println(x);
+      }
+    }
   }
 
   public void createSession() {
@@ -84,6 +98,10 @@ public class EmailData {
     }
   }
 
+  public int getCount() {
+    return count;
+  }
+
   public void setMessageArray() {
     try {
       messages = EmailFolder.getMessages();
@@ -95,17 +113,15 @@ public class EmailData {
   public void setMessageContent() {
     index = 0;
     messagecontent = new String[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
-          messagecontent[index] = (String)((Multipart)messages[i].getContent()).getBodyPart(0).getContent();
-        } else {
-          index--;
+        if (messages[i].getDescription().equals("cs101alg") == true) {
+          messagecontent[index] = (String)((Object)messages[i].getContent());
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }
@@ -119,17 +135,15 @@ public class EmailData {
   public void setMessageDate() {
     index = 0;
     messageDates = new Date[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+        if (messages[i].getDescription().equals("cs101alg") == true) {
           messageDates[index] = messages[i].getSentDate();
-        } else {
-          index--;
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }
@@ -139,17 +153,15 @@ public class EmailData {
   public void setMessageSender() {
     index = 0;
     senders = new String[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+        if (messages[i].getDescription().equals("cs101alg") == true) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
-        } else {
-          index--;
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }
@@ -159,17 +171,15 @@ public class EmailData {
   public void setMessageSubject() {
     index = 0;
     subjects = new String[Limit];
-    for (int i = messages.length-1; i < messages.length; i--) {
+    for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+        if (messages[i].getDescription().equals("cs101alg") == true) {
           subjects[index] = messages[i].getSubject();
-        } else {
-          index--;
+          index++;
         }
       } catch (Exception x) {
         System.out.println(x);
       }
-      index++;
       if(index == Limit) {
         break;
       }

@@ -32,16 +32,16 @@ public class EmailMain {
     email.createSession();
     email.imapsConnect();
     if (num == 2) {
-      email.setMessageArray();
-      email.setLimit(20);
       email.createFolder();
       email.setMessageArray();
+      email.setCount();
+      email.setLimit(email.getCount());
       email.setMessageContent();
       email.setMessageDate();
       email.setMessageSender();
       email.setMessageSubject();
       System.out.println();
-      for (int i = 20 - 1; i > -1; i--) {
+      for (int i = email.getCount() - 1; i >= 0; i--) {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("\n<Message " + (i + 1) + ">");
         System.out.println("From: " + email.getSenders()[i]);
@@ -49,7 +49,7 @@ public class EmailMain {
         System.out.println("Subject: " + email.getSubjects()[i]);
         System.out.println("Message: \n\n" + email.getMessageContent()[i]);
       }
-      System.out.println("\n-----------------------------------------------------------------");
+      System.out.println("-----------------------------------------------------------------");
     } else if (num == 1) {
       System.out.println("\nPlease enter the address of the intended recipient: ");
       recipient = scan.next();
