@@ -32,9 +32,9 @@ public class EmailMain {
     email.createSession();
     email.imapsConnect();
     if (num == 2) {
-      System.out.println("\nPlease enter the amount of e-mails to read: ");
-      limit = scan.nextInt();
-      email.setLimit(limit);
+      email.setMessageArray();
+      email.setCount();
+      email.setLimit(email.getCount());
       email.createFolder();
       email.setMessageArray();
       email.setMessageContent();
@@ -42,7 +42,7 @@ public class EmailMain {
       email.setMessageSender();
       email.setMessageSubject();
       System.out.println();
-      for(int i = limit - 1; i > -1; i--) {
+      for(int i = email.getCount() - 1; i > -1; i--) {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("\n<Message " + (i + 1) + ">");
         System.out.println("From: " + email.getSenders()[i]);

@@ -32,6 +32,7 @@ public class EmailData {
   private int index;
   private String[] messagecontent;
   private MimeMessage usermessage;
+  private int count;
 
   public void createProperties() {
     properties = new Properties();
@@ -97,7 +98,7 @@ public class EmailData {
     messagecontent = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8") == true) {
+        if (messages[i].getDescription().equals("cs101alg")) {
           messagecontent[index] = (String)((Object)messages[i].getContent());
         } else {
           index--;
@@ -116,12 +117,29 @@ public class EmailData {
     Limit = limit;
   }
 
+  public void setCount() {
+    count = 0;
+    for (int i = 0; i < 20; i++) {
+      try {
+        if (messages[i].getDescription().equals("cs101alg")) {
+          count++;
+        }
+      } catch (Exception x) {
+        System.out.println(x);
+      }
+    }
+  }
+
+  public int getCount() {
+    return count;
+  }
+
   public void setMessageDate() {
     index = 0;
     messageDates = new Date[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8") == true) {
+        if (messages[i].getDescription().equals("cs101alg")) {
           messageDates[index] = messages[i].getSentDate();
         } else {
           index--;
@@ -141,7 +159,7 @@ public class EmailData {
     senders = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8") == true) {
+        if (messages[i].getDescription().equals("cs101alg")) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
         } else {
           index--;
@@ -161,7 +179,7 @@ public class EmailData {
     subjects = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+        if (messages[i].getDescription().equals("cs101alg")) {
           subjects[index] = messages[i].getSubject();
         } else {
           index--;
