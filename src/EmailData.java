@@ -117,7 +117,7 @@ public class EmailData {
 
   public void setCount() {
     count = 0;
-    for (int i = 20; i >= 0; i--) {
+    for (int i = messages.length - 1; i < messages.length; i--) {
       try {
         if (messages[i].getDescription().equals("cs101alg")) {
           count++;
