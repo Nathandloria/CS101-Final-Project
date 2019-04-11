@@ -97,8 +97,8 @@ public class EmailData {
     messagecontent = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
-          messagecontent[index] = (String)((Multipart)messages[i].getContent()).getBodyPart(0).getContent();
+        if (messages[i].getDescription().equals("cs101alg") == true || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8") == true) {
+          messagecontent[index] = (String)((Object)messages[i].getContent());
         } else {
           index--;
         }
@@ -121,7 +121,7 @@ public class EmailData {
     messageDates = new Date[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+        if (messages[i].getDescription().equals("cs101alg") == true || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8") == true) {
           messageDates[index] = messages[i].getSentDate();
         } else {
           index--;
@@ -141,7 +141,7 @@ public class EmailData {
     senders = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+        if (messages[i].getDescription().equals("cs101alg") == true || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8") == true) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
         } else {
           index--;
@@ -161,7 +161,7 @@ public class EmailData {
     subjects = new String[Limit];
     for (int i = messages.length-1; i < messages.length; i--) {
       try {
-        if (((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
+        if (messages[i].getDescription().equals("cs101alg") || ((Multipart)(messages[i].getContent())).getBodyPart(0).getContentType().toUpperCase().equals("TEXT/PLAIN; CHARSET=UTF-8")) {
           subjects[index] = messages[i].getSubject();
         } else {
           index--;
@@ -231,7 +231,8 @@ public class EmailData {
       usermessage.setFrom(new InternetAddress(Username));
       usermessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
       usermessage.setSubject(subject);
-      usermessage.setText(message);
+      usermessage.setText(message, "utf-8");
+      usermessage.setDescription("cs101alg");
       usermessage.saveChanges();
       Transport.send(usermessage);
       System.out.println("\nMessage sent successfully!");

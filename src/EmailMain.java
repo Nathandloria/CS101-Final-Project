@@ -1,5 +1,7 @@
 import java.util.Scanner;
+import javax.mail.*;
 import java.io.IOException;
+import java.lang.Object;
 
 public class EmailMain {
   public static void main(String[] args) {
