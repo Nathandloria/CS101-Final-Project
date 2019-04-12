@@ -62,11 +62,10 @@ public class EmailData {
     count = 0;
     for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true) {
+        if (messages[i].getDescription().contains("cs101alg") == true) {
           count++;
         }
       } catch (Exception x) {
-        System.out.println(x);
       }
     }
   }
@@ -115,12 +114,11 @@ public class EmailData {
     messagecontent = new String[Limit];
     for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true) {
+        if (messages[i].getDescription().contains("cs101alg") == true) {
           messagecontent[index] = (String)((Object)messages[i].getContent());
           index++;
         }
       } catch (Exception x) {
-        System.out.println(x);
       }
       if(index == Limit) {
         break;
@@ -137,12 +135,11 @@ public class EmailData {
     messageDates = new Date[Limit];
     for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true) {
+        if (messages[i].getDescription().contains("cs101alg") == true) {
           messageDates[index] = messages[i].getSentDate();
           index++;
         }
       } catch (Exception x) {
-        System.out.println(x);
       }
       if(index == Limit) {
         break;
@@ -155,12 +152,11 @@ public class EmailData {
     senders = new String[Limit];
     for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true) {
+        if (messages[i].getDescription().contains("cs101alg") == true) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
           index++;
         }
       } catch (Exception x) {
-        System.out.println(x);
       }
       if(index == Limit) {
         break;
@@ -173,12 +169,11 @@ public class EmailData {
     subjects = new String[Limit];
     for (int i = messages.length - 21; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().equals("cs101alg") == true) {
+        if (messages[i].getDescription().contains("cs101alg") == true) {
           subjects[index] = messages[i].getSubject();
           index++;
         }
       } catch (Exception x) {
-        System.out.println(x);
       }
       if(index == Limit) {
         break;
@@ -222,7 +217,7 @@ public class EmailData {
     return messagecontent;
   }
 
-  public void sendEmail(String recipient, String subject, String message) {
+  public void sendEmail(String recipient, String subject, String message, String id) {
     try {
       Properties prop = new Properties();
       prop.put("mail.smtp.auth", "true");
@@ -243,6 +238,7 @@ public class EmailData {
       usermessage.setSubject(subject);
       usermessage.setText(message);
       usermessage.saveChanges();
+      usermessage.setDescription(id);
       Transport.send(usermessage);
       System.out.println("\nMessage sent successfully!");
     } catch (Exception x) {

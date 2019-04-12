@@ -16,6 +16,7 @@ public class EmailMain {
     AlgorithmOne alg1;
     AlgorithmTwo alg2;
     AlgorithmAES alg3;
+    String id = null;
     EmailData email = new EmailData();
     Scanner scan = new Scanner(System.in);
     System.out.println("\nPlease enter your e-mail address: ");
@@ -32,6 +33,7 @@ public class EmailMain {
     email.createSession();
     email.imapsConnect();
     if (num == 2) {
+      System.out.println("\nPrinting encrypted messages!");
       email.createFolder();
       email.setMessageArray();
       email.setCount();
@@ -61,10 +63,12 @@ public class EmailMain {
       System.out.println("\nPlease choose which algorithm to encrypt with: ");
       num = scan.nextInt();
       if (num == 1) {
+        id = "cs101alg1";
         alg1 = new AlgorithmOne();
         message = alg1.encript(message);
       } else if (num == 2) {
         alg2 = new AlgorithmTwo();
+        id = "cs101alg2";
         System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
         key = scan.nextInt();
         while (key > 26 || key < 1) {
@@ -75,13 +79,14 @@ public class EmailMain {
       } else if (num == 3) {
         alg3 = new AlgorithmAES();
         alg3.setKey();
+        id = "cs101alg3";
         try {
           message = alg3.encrypt(message);
         } catch (Exception x) {
           System.out.println(x);
         }
       }
-      email.sendEmail(recipient, subject, message);
+      email.sendEmail(recipient, subject, message, id);
     }
   }
 }
