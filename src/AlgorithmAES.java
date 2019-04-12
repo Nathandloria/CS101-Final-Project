@@ -6,6 +6,7 @@ import javax.crypto.SecretKey;
 public class AlgorithmAES {
 	private Cipher cipher;
 	private SecretKey secretKey;
+	private String encodedKey;
 
 	public void setKey() {
 		try {
@@ -17,6 +18,11 @@ public class AlgorithmAES {
 		} catch (Exception x) {
 			System.out.println(x);
 		}
+	}
+
+	public String getKey() {
+		encodedKey = Base64.getEncoder().encodeToString(secretKey.getEncoded());
+		return encodedKey;
 	}
 
 	public String encrypt(String plainText)
@@ -31,11 +37,11 @@ public class AlgorithmAES {
 		return encryptedText;
 	}
 
-	public String decrypt(String encryptedText)
+	public String decrypt(String encryptedText, SecretKey secretkey)
 	throws Exception {
 		Base64.Decoder decoder = Base64.getDecoder();
 		byte[] encryptedTextByte = decoder.decode(encryptedText);
-		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+		cipher.init(Cipher.DECRYPT_MODE, secretkey);
 		byte[] decryptedByte = cipher.doFinal(encryptedTextByte);
 		String decryptedText = new String(decryptedByte);
 		return decryptedText;
