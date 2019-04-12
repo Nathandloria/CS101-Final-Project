@@ -10,7 +10,6 @@ public class EmailMain {
     String recipient;
     String message;
     String subject;
-    int limit;
     int num;
     int key;
     AlgorithmOne alg1;
@@ -19,12 +18,10 @@ public class EmailMain {
     String id = null;
     EmailData email = new EmailData();
     Scanner scan = new Scanner(System.in);
-  /*  System.out.println("\nPlease enter your e-mail address: ");
+    System.out.println("\nPlease enter your e-mail address: ");
     username = scan.next();
     System.out.println("\nPlease enter your app password: ");
-    password = scan.next(); */
-    username = "lorian@allegheny.edu";
-    password = "pisgdzkwfhbytetm";
+    password = scan.next();
     System.out.println("\nWould you like to 1) Send a message or 2) Read emails? (1/2): ");
     num = scan.nextInt();
     email.setUsername(username);
