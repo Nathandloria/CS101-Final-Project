@@ -25,14 +25,13 @@ public class EmailData {
   private String[] senders;
   private String[] subjects;
   private Message[] messages;
-  private Message message;
   private int Limit;
   private Properties properties;
-  private Part part;
   private int index;
   private String[] messagecontent;
   private MimeMessage usermessage;
   private int count;
+  private AlgorithmOne alg1;
 
   public void createProperties() {
     properties = new Properties();
@@ -60,13 +59,17 @@ public class EmailData {
 
   public void setCount() {
     count = 0;
-    for (int i = messages.length - 21; i < messages.length; i++) {
+    for (int i = messages.length - 16; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           count++;
         }
       } catch (Exception x) {
       }
+    }
+    if (count == 0) {
+      System.out.println("No encrypted messages found!");
+      System.exit(0);
     }
   }
 
@@ -110,18 +113,22 @@ public class EmailData {
   }
 
   public void setMessageContent() {
+    alg1 = new AlgorithmOne();
     index = 0;
     messagecontent = new String[Limit];
-    for (int i = messages.length - 21; i < messages.length; i++) {
+    for (int i = messages.length - 16; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().contains("cs101alg") == true) {
+        if (messages[i].getDescription().equals("cs101alg1") == true) {
+          messagecontent[index] = alg1.unencript((String)((Object)messages[i].getContent()));
+          index++;
+        } else if (messages[i].getDescription().contains("cs101alg")){
           messagecontent[index] = (String)((Object)messages[i].getContent());
           index++;
         }
+        if(index == Limit) {
+          break;
+        }
       } catch (Exception x) {
-      }
-      if(index == Limit) {
-        break;
       }
     }
   }
@@ -133,7 +140,7 @@ public class EmailData {
   public void setMessageDate() {
     index = 0;
     messageDates = new Date[Limit];
-    for (int i = messages.length - 21; i < messages.length; i++) {
+    for (int i = messages.length - 16; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           messageDates[index] = messages[i].getSentDate();
@@ -150,7 +157,7 @@ public class EmailData {
   public void setMessageSender() {
     index = 0;
     senders = new String[Limit];
-    for (int i = messages.length - 21; i < messages.length; i++) {
+    for (int i = messages.length - 16; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
@@ -167,7 +174,7 @@ public class EmailData {
   public void setMessageSubject() {
     index = 0;
     subjects = new String[Limit];
-    for (int i = messages.length - 21; i < messages.length; i++) {
+    for (int i = messages.length - 16; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           subjects[index] = messages[i].getSubject();

@@ -19,10 +19,12 @@ public class EmailMain {
     String id = null;
     EmailData email = new EmailData();
     Scanner scan = new Scanner(System.in);
-    System.out.println("\nPlease enter your e-mail address: ");
+  /*  System.out.println("\nPlease enter your e-mail address: ");
     username = scan.next();
     System.out.println("\nPlease enter your app password: ");
-    password = scan.next();
+    password = scan.next(); */
+    username = "lorian@allegheny.edu";
+    password = "pisgdzkwfhbytetm";
     System.out.println("\nWould you like to 1) Send a message or 2) Read emails? (1/2): ");
     num = scan.nextInt();
     email.setUsername(username);
@@ -33,7 +35,7 @@ public class EmailMain {
     email.createSession();
     email.imapsConnect();
     if (num == 2) {
-      System.out.println("\nPrinting encrypted messages!");
+      System.out.println("\nPrinting encrypted messages!\n");
       email.createFolder();
       email.setMessageArray();
       email.setCount();
@@ -42,7 +44,6 @@ public class EmailMain {
       email.setMessageDate();
       email.setMessageSender();
       email.setMessageSubject();
-      System.out.println();
       for (int i = email.getCount() - 1; i >= 0; i--) {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("\n<Message " + (i + 1) + ">");
