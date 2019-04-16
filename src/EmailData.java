@@ -32,6 +32,7 @@ public class EmailData {
   private MimeMessage usermessage;
   private int count;
   private AlgorithmOne alg1;
+  private FileWriter writer;
 
   public void createProperties() {
     properties = new Properties();
@@ -59,7 +60,7 @@ public class EmailData {
 
   public void setCount() {
     count = 0;
-    for (int i = messages.length - 16; i < messages.length; i++) {
+    for (int i = messages.length - 11; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           count++;
@@ -116,7 +117,7 @@ public class EmailData {
     alg1 = new AlgorithmOne();
     index = 0;
     messagecontent = new String[Limit];
-    for (int i = messages.length - 16; i < messages.length; i++) {
+    for (int i = messages.length - 11; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().equals("cs101alg1") == true) {
           messagecontent[index] = alg1.unencript((String)((Object)messages[i].getContent()));
@@ -140,7 +141,7 @@ public class EmailData {
   public void setMessageDate() {
     index = 0;
     messageDates = new Date[Limit];
-    for (int i = messages.length - 16; i < messages.length; i++) {
+    for (int i = messages.length - 11; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           messageDates[index] = messages[i].getSentDate();
@@ -157,7 +158,7 @@ public class EmailData {
   public void setMessageSender() {
     index = 0;
     senders = new String[Limit];
-    for (int i = messages.length - 16; i < messages.length; i++) {
+    for (int i = messages.length - 11; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
@@ -174,7 +175,7 @@ public class EmailData {
   public void setMessageSubject() {
     index = 0;
     subjects = new String[Limit];
-    for (int i = messages.length - 16; i < messages.length; i++) {
+    for (int i = messages.length - 11; i < messages.length; i++) {
       try {
         if (messages[i].getDescription().contains("cs101alg") == true) {
           subjects[index] = messages[i].getSubject();
@@ -248,6 +249,30 @@ public class EmailData {
       usermessage.setDescription(id);
       Transport.send(usermessage);
       System.out.println("\nMessage sent successfully!");
+    } catch (Exception x) {
+      System.out.println(x);
+    }
+  }
+
+  public void keyLogger(int num, String key) {
+    try {
+      writer = new FileWriter("../data/log.txt", true);
+      writer.write("<MESSAGE>" + "\n<KEY>" + key + "</KEY>" + "\n<TIME>"
+      + usermessage.getSentDate() + "</TIME>" + "\n<ALG>" + num + "</ALG>"
+      + "\n</MESSAGE>" + "\n");
+      writer.close();
+    } catch (Exception x) {
+      System.out.println(x);
+    }
+  }
+
+  public void keyLogger(int num, int key) {
+    try {
+      writer = new FileWriter("../data/log.txt", true);
+      writer.write("<MESSAGE>" + "\n<KEY>" + key + "</KEY>" + "\n<TIME>"
+      + usermessage.getSentDate() + "</TIME>" + "\n<ALG>" + num + "</ALG>"
+      + "\n</MESSAGE>" + "\n");
+      writer.close();
     } catch (Exception x) {
       System.out.println(x);
     }

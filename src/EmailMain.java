@@ -64,6 +64,7 @@ public class EmailMain {
         id = "cs101alg1";
         alg1 = new AlgorithmOne();
         message = alg1.encript(message);
+        email.sendEmail(recipient, subject, message, id);
       } else if (num == 2) {
         alg2 = new AlgorithmTwo();
         id = "cs101alg2";
@@ -74,6 +75,8 @@ public class EmailMain {
           key = scan.nextInt();
         }
         message = alg2.encrypt(message, key);
+        email.sendEmail(recipient, subject, message, id);
+        email.keyLogger(num, key);
       } else if (num == 3) {
         alg3 = new AlgorithmAES();
         alg3.setKey();
@@ -83,8 +86,9 @@ public class EmailMain {
         } catch (Exception x) {
           System.out.println(x);
         }
+        email.sendEmail(recipient, subject, message, id);
+        email.keyLogger(num, alg3.getKey());
       }
-      email.sendEmail(recipient, subject, message, id);
     }
   }
 }
