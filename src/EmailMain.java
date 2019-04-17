@@ -67,27 +67,25 @@ public class EmailMain {
         email.sendEmail(recipient, subject, message, id);
       } else if (num == 2) {
         alg2 = new AlgorithmTwo();
-        id = "cs101alg2";
         System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
         key = scan.nextInt();
         while (key > 26 || key < 1) {
           System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
           key = scan.nextInt();
         }
+        id = "cs101alg2";
         message = alg2.encrypt(message, key);
         email.sendEmail(recipient, subject, message, id);
-        email.keyLogger(num, key);
       } else if (num == 3) {
         alg3 = new AlgorithmAES();
         alg3.setKey();
-        id = "cs101alg3";
+        id = "cs101alg3" + alg3.getKey();
         try {
           message = alg3.encrypt(message);
         } catch (Exception x) {
           System.out.println(x);
         }
         email.sendEmail(recipient, subject, message, id);
-        email.keyLogger(num, alg3.getKey());
       }
     }
   }

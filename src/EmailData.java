@@ -253,28 +253,4 @@ public class EmailData {
       System.out.println(x);
     }
   }
-
-  public void keyLogger(int num, String key) {
-    try {
-      writer = new FileWriter("../data/log.txt", true);
-      writer.write("<MESSAGE>" + "\n<KEY>" + key + "</KEY>" + "\n<TIME>"
-      + usermessage.getSentDate() + "</TIME>" + "\n<ALG>" + num + "</ALG>"
-      + "\n</MESSAGE>" + "\n");
-      writer.close();
-    } catch (Exception x) {
-      System.out.println(x);
-    }
-  }
-
-  public void keyLogger(int num, int key) {
-    try {
-      writer = new FileWriter("../data/log.txt", true);
-      writer.write("<MESSAGE>" + "\n<KEY>" + key + "</KEY>" + "\n<TIME>"
-      + usermessage.getSentDate() + "</TIME>" + "\n<ALG>" + num + "</ALG>"
-      + "\n</MESSAGE>" + "\n");
-      writer.close();
-    } catch (Exception x) {
-      System.out.println(x);
-    }
-  }
 }
