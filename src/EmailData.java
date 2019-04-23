@@ -31,9 +31,9 @@ public class EmailData {
   private String[] messagecontent;
   private MimeMessage usermessage;
   private int count;
-  private AlgorithmOne alg1;
-  private AlgorithmTwo alg2;
-  private AlgorithmAES alg3;
+  private AlgorithmOne alg1 = new AlgorithmOne();;
+  private AlgorithmTwo alg2 = new AlgorithmTwo();
+  private AlgorithmAES alg3 = new AlgorithmAES();
 
   public void createProperties() {
     properties = new Properties();
@@ -63,7 +63,7 @@ public class EmailData {
     count = 0;
     for (int i = messages.length - 11; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().contains("cs101alg")) {
+        if (alg1.unencript(messages[i].getDescription()).contains("cs101alg")) {
           count++;
         }
       } catch (Exception x) {
@@ -115,24 +115,21 @@ public class EmailData {
   }
 
   public void setMessageContent() {
-    alg1 = new AlgorithmOne();
-    alg2 = new AlgorithmTwo();
-    alg3 = new AlgorithmAES();
     index = 0;
     messagecontent = new String[Limit];
     for (int i = messages.length - 11; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().equals("cs101alg1")) {
+        if (alg1.unencript(messages[i].getDescription()).equals("cs101alg1")) {
           messagecontent[index] = alg1.unencript((String)((Object)messages[i].getContent()));
           index++;
-        } else if (messages[i].getDescription().contains("cs101alg2")){
-          String one = (String)(Object)messages[i].getContent();
-          int two = Integer.parseInt(messages[i].getDescription().substring(9, messages[i].getDescription().length()));
+        } else if (alg1.unencript(messages[i].getDescription()).contains("cs101alg2")) {
+          String one = ((String)(Object)messages[i].getContent()).substring(0, ((String)(Object)messages[i].getContent()).length() - 2);
+          int two = Integer.parseInt(alg1.unencript(messages[i].getDescription().substring(9, alg1.unencript(messages[i].getDescription()).length())));
           messagecontent[index] = alg2.decrypt(one, two);
           index++;
-        } else if (messages[i].getDescription().contains("cs101alg3")) {
-          String one = ((String)(Object)messages[i].getContent()).substring(0, (((String)(Object)messages[i].getContent()).length()) - 2);
-          String two = messages[i].getDescription().substring(9, messages[i].getDescription().length());
+        } else if (alg1.unencript(messages[i].getDescription()).contains("cs101alg3")) {
+          String one = ((String)(Object)messages[i].getContent()).substring(0, ((String)(Object)messages[i].getContent()).length() - 2);
+          String two = alg1.unencript(messages[i].getDescription().substring(9, alg1.unencript(messages[i].getDescription()).length()));
           messagecontent[index] = alg3.decrypt(one, two);
           index++;
         }
@@ -153,7 +150,7 @@ public class EmailData {
     messageDates = new Date[Limit];
     for (int i = messages.length - 11; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().contains("cs101alg")) {
+        if (alg1.unencript(messages[i].getDescription()).contains("cs101alg")) {
           messageDates[index] = messages[i].getSentDate();
           index++;
         }
@@ -170,7 +167,7 @@ public class EmailData {
     senders = new String[Limit];
     for (int i = messages.length - 11; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().contains("cs101alg")) {
+        if (alg1.unencript(messages[i].getDescription()).contains("cs101alg")) {
           senders[index] = InternetAddress.toString(messages[i].getFrom());
           index++;
         }
@@ -187,7 +184,7 @@ public class EmailData {
     subjects = new String[Limit];
     for (int i = messages.length - 11; i < messages.length; i++) {
       try {
-        if (messages[i].getDescription().contains("cs101alg")) {
+        if (alg1.unencript(messages[i].getDescription()).contains("cs101alg")) {
           subjects[index] = messages[i].getSubject();
           index++;
         }

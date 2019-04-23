@@ -13,7 +13,7 @@ public class EmailMain {
     String AESKey;
     int num;
     int key;
-    AlgorithmOne alg1;
+    AlgorithmOne alg1 = new AlgorithmOne();
     AlgorithmTwo alg2;
     AlgorithmAES alg3;
     String id = null;
@@ -62,8 +62,7 @@ public class EmailMain {
       System.out.println("\nPlease choose which algorithm to encrypt with: ");
       num = scan.nextInt();
       if (num == 1) {
-        id = "cs101alg1";
-        alg1 = new AlgorithmOne();
+        id = alg1.encript("cs101alg1");
         message = alg1.encript(message);
         email.sendEmail(recipient, subject, message, id);
       } else if (num == 2) {
@@ -74,14 +73,14 @@ public class EmailMain {
           System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
           key = scan.nextInt();
         }
-        id = "cs101alg2" + key;
+        id = alg1.encript("cs101alg2" + key);
         message = alg2.encrypt(message, key);
         email.sendEmail(recipient, subject, message, id);
       } else if (num == 3) {
         try {
           alg3 = new AlgorithmAES();
           AESKey = alg3.setKey();
-          id = "cs101alg3" + AESKey;
+          id = alg1.encript("cs101alg3" + AESKey);
           message = alg3.encrypt(message, AESKey);
         } catch (Exception x) {
           System.out.println(x);
