@@ -131,7 +131,7 @@ public class EmailData {
           messagecontent[index] = alg2.decrypt(one, two);
           index++;
         } else if (messages[i].getDescription().contains("cs101alg3")) {
-          String one = (String)(Object)messages[i].getContent();
+          String one = ((String)(Object)messages[i].getContent()).substring(0, (((String)(Object)messages[i].getContent()).length()) - 2);
           String two = messages[i].getDescription().substring(9, messages[i].getDescription().length());
           messagecontent[index] = alg3.decrypt(one, two);
           index++;

@@ -10,6 +10,7 @@ public class EmailMain {
     String recipient;
     String message;
     String subject;
+    String AESKey;
     int num;
     int key;
     AlgorithmOne alg1;
@@ -77,11 +78,11 @@ public class EmailMain {
         message = alg2.encrypt(message, key);
         email.sendEmail(recipient, subject, message, id);
       } else if (num == 3) {
-        alg3 = new AlgorithmAES();
-        alg3.setKey();
-        id = "cs101alg3" + alg3.getKey();
         try {
-          message = alg3.encrypt(message);
+          alg3 = new AlgorithmAES();
+          AESKey = alg3.setKey();
+          id = "cs101alg3" + AESKey;
+          message = alg3.encrypt(message, AESKey);
         } catch (Exception x) {
           System.out.println(x);
         }
