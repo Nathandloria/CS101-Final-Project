@@ -73,7 +73,7 @@ public class EmailMain {
           System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
           key = scan.nextInt();
         }
-        id = "cs101alg2";
+        id = "cs101alg2" + key;
         message = alg2.encrypt(message, key);
         email.sendEmail(recipient, subject, message, id);
       } else if (num == 3) {

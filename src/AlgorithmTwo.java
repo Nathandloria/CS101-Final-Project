@@ -30,9 +30,10 @@ public class AlgorithmTwo {
     return code2;
   }
 
-  public String decrypt(int var) {
-    code2 = String.copyValueOf(arr2);
+  public String decrypt(String code, int var) {
+    code2 = code;
     var2 = var;
+    arr2 = code2.toCharArray();
 
     for (int p = 0; p < arr2.length; p++) {
       if (Character.isLetter(code2.charAt(p)) == false) {
