@@ -59,7 +59,7 @@ public class EmailMain {
       subject = scan.nextLine();
       System.out.println("\nPlease enter the message you would like to send: ");
       message = scan.nextLine();
-      System.out.println("\nPlease choose which algorithm to encrypt with: ");
+      System.out.println("\nPlease choose which algorithm to encrypt with (1, 2 or 3): ");
       num = scan.nextInt();
       if (num == 1) {
         id = alg1.encript("cs101alg1");
