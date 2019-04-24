@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
 
-/** This is a simple encrption method to encript a string by shifting it 100
+/** This is a simple encrption method to encript a string by shifting it 150
 *   characters by the acii chart.
 *   @author Adam Cook
 */
