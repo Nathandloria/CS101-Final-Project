@@ -11,6 +11,7 @@ public class EmailMain {
     String message;
     String subject;
     String AESKey;
+    String response;
     int num;
     int key;
     AlgorithmOne alg1 = new AlgorithmOne();
@@ -52,41 +53,46 @@ public class EmailMain {
       }
       System.out.println("-----------------------------------------------------------------");
     } else if (num == 1) {
-      System.out.println("\nPlease enter the address of the intended recipient: ");
-      recipient = scan.next();
-      scan.nextLine();
-      System.out.println("\nPlease enter the subject of the message: ");
-      subject = scan.nextLine();
-      System.out.println("\nPlease enter the message you would like to send: ");
-      message = scan.nextLine();
-      System.out.println("\nPlease choose which algorithm to encrypt with (1, 2 or 3): ");
-      num = scan.nextInt();
-      if (num == 1) {
-        id = alg1.encript("cs101alg1");
-        message = alg1.encript(message);
-        email.sendEmail(recipient, subject, message, id);
-      } else if (num == 2) {
-        alg2 = new AlgorithmTwo();
-        System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
-        key = scan.nextInt();
-        while (key > 26 || key < 1) {
+      do {
+        System.out.println("\nPlease enter the address of the intended recipient: ");
+        recipient = scan.next();
+        scan.nextLine();
+        System.out.println("\nPlease enter the subject of the message: ");
+        subject = scan.nextLine();
+        System.out.println("\nPlease enter the message you would like to send: ");
+        message = scan.nextLine();
+        System.out.println("\nPlease choose which algorithm to encrypt with (1, 2 or 3): ");
+        num = scan.nextInt();
+        if (num == 1) {
+          id = alg1.encript("cs101alg1");
+          message = alg1.encript(message);
+          email.sendEmail(recipient, subject, message, id);
+        } else if (num == 2) {
+          alg2 = new AlgorithmTwo();
           System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
           key = scan.nextInt();
+          while (key > 26 || key < 1) {
+            System.out.println("\nPlease enter the amount to encrypt by (1-26): ");
+            key = scan.nextInt();
+          }
+          id = alg1.encript("cs101alg2" + key);
+          message = alg2.encrypt(message, key);
+          email.sendEmail(recipient, subject, message, id);
+        } else if (num == 3) {
+          try {
+            alg3 = new AlgorithmAES();
+            AESKey = alg3.setKey();
+            id = alg1.encript("cs101alg3" + AESKey);
+            message = alg3.encrypt(message, AESKey);
+          } catch (Exception x) {
+            System.out.println(x);
+          }
+          email.sendEmail(recipient, subject, message, id);
         }
-        id = alg1.encript("cs101alg2" + key);
-        message = alg2.encrypt(message, key);
-        email.sendEmail(recipient, subject, message, id);
-      } else if (num == 3) {
-        try {
-          alg3 = new AlgorithmAES();
-          AESKey = alg3.setKey();
-          id = alg1.encript("cs101alg3" + AESKey);
-          message = alg3.encrypt(message, AESKey);
-        } catch (Exception x) {
-          System.out.println(x);
-        }
-        email.sendEmail(recipient, subject, message, id);
-      }
+        System.out.println("\nWould you like to send another email? (y/n)");
+        response = scan.next();
+      } while (response.toUpperCase().equals("Y"));
+      System.out.println("\nBye!\n");
     }
   }
 }
